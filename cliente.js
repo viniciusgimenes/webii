@@ -2,7 +2,7 @@
 const Sequelize = require('sequelize');
 const database = require('./dborm');
 
-const Cliente = database.sequelize.define('cliente', {
+const Cliente = database.define('cliente', {
     id: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
