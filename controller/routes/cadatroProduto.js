@@ -1,36 +1,32 @@
 const seguranca = require('../../model/components/seguranca');
-const usuarioBanco = require('../../model/repositories/usuario-bd');
-var UsuarioLogin = require("../../model/entities/Usuario");
-module.exports = function(app){
+const clienteBanco = require('../../model/repositories/cliente-bd');
+var ClienteLogin = require("../../model/entities/Cliente");
+module.exports = function (app) {
 
-app.post('/cadastro/usuario/salvar', (req, res) => {
-   try {
-    usuarioBanco.insertUsuario({nome: req.body.nome , senha: seguranca.ocultarSenha( req.body.senha)});
-    res.render('Cadastro', { title: 'Cadastro', mensagem: 'Usuário Cadastrado com sucesso' });
-   } catch (error) {
-    res.render('Cadastro', { title: 'Cadastro', mensagem: 'Erro no cadastrado' });
-   }
-  
-  });
+    app.post('/cadastro/cliente/salvar', (req, res) => {
+        try {
+            clienteBanco.insertCliente({nome: req.body.nome, senha: seguranca.ocultarSenha(req.body.senha)});
+            res.render('Cadastro', {title: 'Cadastro', mensagem: 'Cliente Cadastrado com sucesso'});
+        } catch (error) {
+            res.render('Cadastro', {title: 'Cadastro', mensagem: 'Erro no cadastrado'});
+        }
+
+    });
 
 
-
-/* GET login page. */
-app.get('/cadastro', (req, res) => {
-  res.render('Cadastro', { title: 'Cadastro', mensagem: null });
-});
+    /* GET login page. */
+    app.get('/produto/cadastro', (req, res) => {
+        res.render('produto/index', {title: 'Cadastro', mensagem: null});
+    });
 
 
 }
 
 
-
-
-
 /*const { response } = require("express");
 
 const seguranca = require('../../model/components/seguranca');
-const usuarioBanco = require('../../model/repositories/usuario-bd');
+const clienteBanco = require('../../model/repositories/cliente-bd');
 module.exports = function(app){
     
   var HomeController = {
@@ -38,12 +34,12 @@ module.exports = function(app){
     res.render('login');
 },
 login: function (req, res) {
-    var email = req.body.usuario.email
-        , nome = req.body.usuario.nome;
+    var email = req.body.cliente.email
+        , nome = req.body.cliente.nome;
     if (email && nome) {
-        var usuario = req.body.usuario;
-        usuario['contatos'] = [];
-        req.session.usuario = usuario;
+        var cliente = req.body.cliente;
+        cliente['contatos'] = [];
+        req.session.cliente = cliente;
         res.redirect('/contatos');
     } else {
         res.redirect('/');
@@ -69,7 +65,7 @@ return HomeController;
          console.log(req.body);
          console.log("oooooooo");
          console.info(req.body.nome);
-           usuarioBanco.insertUsuario(req.params.nome,seguranca.ocultarSenha( req.params.senha) );
+           clienteBanco.insertCliente(req.params.nome,seguranca.ocultarSenha( req.params.senha) );
            res.send("Eba!!!");
          });
   }*/
