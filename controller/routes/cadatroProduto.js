@@ -1,25 +1,22 @@
 const seguranca = require('../../model/components/seguranca');
 const clienteBanco = require('../../model/repositories/cliente-bd');
-var ClienteLogin = require("../../model/entities/Cliente");
 module.exports = function (app) {
-
-    app.post('/cadastro/cliente/salvar', (req, res) => {
-        try {
-            clienteBanco.insertCliente({nome: req.body.nome, senha: seguranca.ocultarSenha(req.body.senha)});
-            res.render('Cadastro', {title: 'Cadastro', mensagem: 'Cliente Cadastrado com sucesso'});
-        } catch (error) {
-            res.render('Cadastro', {title: 'Cadastro', mensagem: 'Erro no cadastrado'});
-        }
-
+    app.post('/cadastro/cliente/salvar', async (req, res) => {
+        clienteBanco
+            .insertCliente({nome: req.body.nome, senha: seguranca.ocultarSenha(req.body.senha)})
+            .then(() => {
+                console.log('Sucesso')
+                res.render('Cadastro', {title: 'Cadastro', mensagem: 'Cliente Cadastrado com sucesso'});
+            })
+            .catch(() => {
+                console.log('Erro')
+                res.render('Cadastro', {title: 'Cadastro', mensagem: 'Erro no cadastrado'});
+            });
     });
 
-
-    /* GET login page. */
     app.get('/produto/cadastro', (req, res) => {
         res.render('produto/index', {title: 'Cadastro', mensagem: null});
     });
-
-
 }
 
 

@@ -1,8 +1,9 @@
 //cliente.js
 const Sequelize = require('sequelize');
+const {DataTypes} = require("sequelize"); // Import the built-in data types
 const database = require('../db-orm');
 
-const Cliente = database.define('cliente', {
+const Cliente = database.define('clientes', {
     id: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
@@ -16,7 +17,17 @@ const Cliente = database.define('cliente', {
     idade: {
         type: Sequelize.INTEGER
     },
-    endereco: Sequelize.STRING
+    senha: {
+        type: Sequelize.STRING
+    },
+    createdAt: {
+        type: Sequelize.DATE,
+        defaultValue: DataTypes.NOW
+    },
+    updatedAt: {
+        type: Sequelize.DATE,
+        defaultValue: DataTypes.NOW
+    },
 });
 
 (async () => {
